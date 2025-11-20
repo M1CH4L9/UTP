@@ -1,0 +1,5 @@
+Linia 1 z pliku a
+Druga linia ąę
+Tylko jedna linia w pliku b
+To jest plik c
+Z polskimi znakami: śćżźó
