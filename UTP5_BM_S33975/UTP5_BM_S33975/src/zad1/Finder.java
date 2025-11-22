@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class Finder {
     private String cleanedSource;
+    private String sourceCode;
 
     public Finder(String filePath) throws IOException{
         StringBuilder sourceBuilder = new StringBuilder();
@@ -21,7 +22,8 @@ public class Finder {
                 sourceBuilder.append(line).append("\n");
             }
         }
-        String sourceCode = sourceBuilder.toString();
+        //poprawka 1 - przechowuję normalnie początkowy kod, a nie tylko wyczyszczony
+        sourceCode = sourceBuilder.toString();
         cleanedSource = removeCommentsAndString(sourceCode);
     }
 
@@ -125,10 +127,12 @@ public class Finder {
     }
     public int getStringCount(String searchText){
         int count = 0;
-        int idx = cleanedSource.indexOf(searchText);
+        //poprawka 2 - używałem cleanedSource bez komentarzy :)
+        int idx = sourceCode.indexOf(searchText);
         while(idx != -1){
             count++;
-            idx = cleanedSource.indexOf(searchText, idx + 1);
+            //poprawka 3
+            idx = sourceCode.indexOf(searchText, idx + 1);
         }
         return count;
     }
