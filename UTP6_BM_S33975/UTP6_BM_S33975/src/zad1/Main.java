@@ -15,7 +15,9 @@ import java.net.*;
 public class Main {
   public static void main(String[] args) {
       try{
-          URL url = new URL("http://wiki.puzzlers.org/pub/wordlists/unixdict.txt");
+          // :3
+          //URL url = new URL("http://wiki.puzzlers.org/pub/wordlists/unixdict.txt");
+          URL url = new URL("https://raw.githubusercontent.com/pmichaud/rpbench/master/files/unixdict.txt");
           BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
           Map<String, List<String>> anagramy = reader.lines().collect(Collectors.groupingBy(slowo -> {
@@ -40,4 +42,5 @@ public class Main {
       }
   }
 }
+
 
