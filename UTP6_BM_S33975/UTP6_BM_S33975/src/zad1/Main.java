@@ -15,9 +15,7 @@ import java.net.*;
 public class Main {
   public static void main(String[] args) {
       try{
-          //stronka nie działa :(  więc użyłem jakiejś premade listy z githuba do testów
           URL url = new URL("http://wiki.puzzlers.org/pub/wordlists/unixdict.txt");
-          //URL url = new URL("https://raw.githubusercontent.com/dwyl/english-words/master/words.txt");
           BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
           Map<String, List<String>> anagramy = reader.lines().collect(Collectors.groupingBy(slowo -> {
@@ -42,3 +40,4 @@ public class Main {
       }
   }
 }
+
