@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon Dec 22 23:51:43 CET 2025:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-019b-4842-eab7-00001ebfc770 
+Tue Dec 23 23:36:32 CET 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-019b-4d5b-5d5e-00001eb041d0 
 on database directory C:\Users\micha\Downloads\UTP8_BM_S33975\UTP8_BM_S33975\baza_ofert with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
 Loaded from file:/C:/Users/micha/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation

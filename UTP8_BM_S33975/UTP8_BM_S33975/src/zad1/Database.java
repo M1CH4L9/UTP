@@ -16,6 +16,7 @@ public class Database {
     private JFrame frame;
     private JTable table;
     private DefaultTableModel model;
+    private JLabel langLabel;
 
     public Database(String url, TravelData travelData) {
         this.url = url;
@@ -65,10 +66,9 @@ public class Database {
             connection.close();
 
         } catch (Exception e) {
-            // Główny catch dla błędów połączenia lub SQL
             e.printStackTrace();
         }
-    } // Tutaj kończy się metoda create(). Wcześniej brakowało tego nawiasu.
+    }
 
     public void showGui() {
         frame = new JFrame("Oceń ofertę / Travel Offers");
@@ -77,13 +77,6 @@ public class Database {
         frame.setLayout(new BorderLayout());
 
         model = new DefaultTableModel();
-        model.addColumn("Kraj");
-        model.addColumn("Wyjazd");
-        model.addColumn("Powrót");
-        model.addColumn("Miejsce");
-        model.addColumn("Cena");
-        model.addColumn("Waluta");
-
         table = new JTable(model);
         JScrollPane scroll = new JScrollPane(table);
         frame.add(scroll, BorderLayout.CENTER);
@@ -91,7 +84,9 @@ public class Database {
         JPanel panel = new JPanel();
         String[] jezyki = {"pl_PL", "en_GB"};
         JComboBox<String> combo = new JComboBox<>(jezyki);
-        panel.add(new JLabel("Wybierz język / Select language:"));
+
+        langLabel = new JLabel("Wybierz język / Select language:");
+        panel.add(langLabel);
         panel.add(combo);
         frame.add(panel, BorderLayout.NORTH);
 
@@ -114,6 +109,21 @@ public class Database {
         Locale locale = new Locale(locArr[0], locArr[1]);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        ResourceBundle bundle = ResourceBundle.getBundle("zad1.bundle", locale);
+
+        model.setColumnIdentifiers(new String[] {
+                bundle.getString("country"),
+                bundle.getString("departure"),
+                bundle.getString("return"),
+                bundle.getString("place"),
+                bundle.getString("price"),
+                bundle.getString("currency")
+        });
+
+        if (langLabel != null) {
+            langLabel.setText(bundle.getString("lang_select") + ":");
+        }
+
         List<Offer> lista = travelData.getOffersList();
 
         for (int i = 0; i < lista.size(); i++) {
@@ -128,20 +138,7 @@ public class Database {
                 }
             }
 
-            String miejsce = o.place; // prymitywna logika powtórzona
-            if (miejsce.equals("jezioro") || miejsce.equals("See")) miejsce = "lake";
-            if (miejsce.equals("morze") || miejsce.equals("Meer")) miejsce = "sea";
-            if (miejsce.equals("góry") || miejsce.equals("Gebirge")) miejsce = "mountains";
-
-            if (locale.getLanguage().equals("pl")) {
-                if (miejsce.equals("lake")) miejsce = "jezioro";
-                if (miejsce.equals("sea")) miejsce = "morze";
-                if (miejsce.equals("mountains")) miejsce = "góry";
-            } else if (locale.getLanguage().equals("en")) {
-                if (miejsce.equals("jezioro")) miejsce = "lake";
-                if (miejsce.equals("morze")) miejsce = "sea";
-                if (miejsce.equals("góry")) miejsce = "mountains";
-            }
+            String miejsce = travelData.translatePlace(o.place, locale);
 
             NumberFormat nf = NumberFormat.getInstance(locale);
             if (locale.getLanguage().equals("pl")) {

@@ -100,7 +100,7 @@ public class TravelData {
             sb.append(sdfTarget.format(offer.dateStart)).append(" ");
             sb.append(sdfTarget.format(offer.dateEnd)).append(" ");
 
-            String translatedPlace = translateCountry(offer.place, localeTarget);
+            String translatedPlace = translatePlace(offer.place, localeTarget);
             sb.append(translatedPlace).append(" ");
 
             NumberFormat numberFormat = NumberFormat.getInstance(localeTarget);
@@ -121,41 +121,19 @@ public class TravelData {
         return result;
     }
 
-    private String translateCountry(String word, Locale target){
+    public String translatePlace(String word, Locale target) {
         String key = word;
 
-        if(word.equals("jezioro") || word.equals("See")){
-            key = "lake";
-        }
-        if(word.equals("morze") || word.equals("Meer")){
-            key = "sea";
-        }
-        if(word.equals("góry") || word.equals("Gebirge")){
-            key = "mountains";
-        }
+        if (word.equals("jezioro") || word.equals("See")) key = "lake";
+        else if (word.equals("morze") || word.equals("Meer")) key = "sea";
+        else if (word.equals("góry") || word.equals("Gebirge")) key = "mountains";
 
-        if(target.getLanguage().equals("pl")){
-            if(key.equals("lake")){
-                return "jezioro";
-            }
-            if(key.equals("sea")){
-                return "morze";
-            }
-            if(key.equals("mountains")){
-                return "góry";
-            }
-        }else if(target.getLanguage().equals("en")){
-            if(key.equals("lake") || key.equals("jezioro")){
-                return "lake";
-            }
-            if(key.equals("sea") || key.equals("morze")){
-                return "sea";
-            }
-            if(key.equals("mountains")|| key.equals("góry")){
-                return "mountains";
-            }
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("zad1.bundle", target);
+            return bundle.getString(key);
+        } catch (MissingResourceException e) {
+            return key;
         }
-        return word;
     }
 
     public List<Offer> getOffersList(){
