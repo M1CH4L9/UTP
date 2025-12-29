@@ -31,7 +31,7 @@ public class Database {
             try {
                 stmt.execute("DROP TABLE Offers");
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
 
             String sql = "CREATE TABLE Offers (" +
@@ -160,4 +160,5 @@ public class Database {
             });
         }
     }
+
 }
