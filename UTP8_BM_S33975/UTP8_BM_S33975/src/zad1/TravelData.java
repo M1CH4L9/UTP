@@ -70,7 +70,7 @@ public class TravelData {
                 offersList.add(offer);
             }
         }catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
@@ -139,4 +139,5 @@ public class TravelData {
     public List<Offer> getOffersList(){
         return offersList;
     }
+
 }
